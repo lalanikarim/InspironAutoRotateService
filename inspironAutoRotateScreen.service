@@ -1,0 +1,10 @@
+[Unit]
+Description=Auto rotates Dell Inspiron 13's screen based on orientation change
+After=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/inspironRotateService
+
+[Install]
+WantedBy=default.target

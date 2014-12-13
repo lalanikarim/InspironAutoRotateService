@@ -1,0 +1,60 @@
+#!/bin/bash
+SENSORDIR="$1"
+XRAW="in_accel_x_raw"
+YRAW="in_accel_y_raw"
+#ZRAW="in_accel_z_raw"
+SCALE="in_accel_scale"
+s=`cat $SENSORDIR/$SCALE`
+
+probesensors(){
+	xraw=`cat "$SENSORDIR/$XRAW"`
+	yraw=`cat $SENSORDIR/$YRAW`
+#	zraw=`cat $SENSORDIR/$ZRAW`
+	x=`echo "$xraw * $s"|bc`
+	y=`echo "$yraw * $s"|bc`
+#	z=`echo "$zraw * $s"|bc`
+
+#	echo $x $y
+
+	xltn2=`echo "$x < -2.0"|bc`
+	xgt2=`echo "$x > 2.0"|bc`
+	yltn2=`echo "$y < -2.0"|bc`
+	ygt2=`echo "$y > 2.0"|bc`	
+
+	if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] && [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
+	then
+		echo "normal"
+	else
+		if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] 
+		then
+			if [ $yltn2 == 1 ]
+			then
+				echo "normal"
+			else
+				if [ $ygt2 == 1 ]
+				then
+					echo "inverted"
+				else
+					echo "normal"
+				fi
+			fi
+		else
+			if [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
+			then
+				if [ $xltn2 == 1 ]
+				then
+					echo "right"
+				else
+					if [ $xgt2 == 1 ]
+					then
+						echo "left"
+					else
+						echo "right"
+					fi
+				fi
+			fi
+		fi		
+	fi
+}
+
+probesensors

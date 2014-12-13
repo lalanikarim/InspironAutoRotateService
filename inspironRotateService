@@ -1,0 +1,19 @@
+#!/bin/bash
+
+IIOPATH="/sys/bus/iio/devices"
+IIODEVICE=""
+for f in `find $IIOPATH/*/* -name "name"`
+do 
+	if [ `cat $f` == "accel_3d" ]
+	then 
+		IIODEVICE=`dirname $f`
+	fi
+done
+
+#echo $IIODEVICE
+
+while true
+do
+	inspironReadSensor $IIODEVICE | xargs inspironRotateScreen
+	sleep 5
+done

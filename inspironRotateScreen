@@ -1,0 +1,70 @@
+#!/bin/bash
+
+devices[1]="ELAN Touchscreen"
+devices[2]="SynPS/2 Synaptics TouchPad"
+
+matrix[1]="1 0 0 0 1 0 0 0 1"
+matrix[2]="0 1 0 -1 0 1 0 0 1"
+matrix[3]="0 -1 1 1 0 0 0 0 1"
+matrix[4]="-1 0 1 0 -1 1 0 0 1"
+
+rotatescreen(){
+	xrandr --screen 0 -o $1
+	if [ $1 == "normal" ]
+	then
+		for index in 1 2
+		do
+			xinput set-prop "${devices[index]}" --type=float "Coordinate Transformation Matrix" ${matrix[1]}
+		done
+	fi
+	if [ $1 == "right" ]
+	then
+		for index in 1 2
+		do
+			xinput set-prop "${devices[index]}" --type=float "Coordinate Transformation Matrix" ${matrix[2]}
+		done
+	fi
+	if [ $1 == "left" ]
+	then
+		for index in 1 2
+		do
+			xinput set-prop "${devices[index]}" --type=float "Coordinate Transformation Matrix" ${matrix[3]}
+		done
+	fi
+	if [ $1 == "inverted" ]
+	then
+		for index in 1 2
+		do
+			xinput set-prop "${devices[index]}" --type=float "Coordinate Transformation Matrix" ${matrix[4]}
+		done
+	fi
+}
+
+showhelp(){
+	echo "Dell Inspiron 2-in-1 Screen Rotation Script"
+	echo "Tested successfully with Dell Inspiron 13 i7347 2-in-1 Laptop"
+	echo
+	echo "usage: .rotateScreen.sh [option]"
+	echo "options"
+	echo "	left 		- rotates screen 90 degrees to the left from the normal mode"
+	echo "	right		- rotates screen 90 degrees to the right from the normal mode"
+	echo "	inverted	- rotates screen 180 degrees from the normal mode"
+	echo "	normal		- resets the screen orientation to normal mode"
+	echo
+	echo "Script with option could be attached to Keyboard shortcuts as well as Operating System Events"
+	echo "The intention is to apply the script to system events that respond to the laptops internal gyroscope to automatically rotate the screen"
+	echo
+	echo "Author: Karim Lalani - jimmy00784@gmail.com"	
+}
+
+if [ $# == 1 ]
+then
+	if [ $1 == normal ] || [ $1 == left ] || [ $1 == right ] || [ $1 == inverted ]
+	then
+		rotatescreen $1
+	else
+		showhelp
+	fi
+else
+	showhelp
+fi
