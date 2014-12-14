@@ -63,7 +63,10 @@ then
 	then
 		rotatescreen $1
 	else
-		showhelp
+		if [ ! $1 == flat ]
+		then
+			showhelp
+		fi
 	fi
 else
 	showhelp

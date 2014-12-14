@@ -15,45 +15,52 @@ probesensors(){
 #	z=`echo "$zraw * $s"|bc`
 
 #	echo $x $y
+	x0=`echo "$x < 1.0 && $x > -1.0"|bc`
+	y0=`echo "$y < 1.0 && $y > -1.0"|bc`
 
 	xltn2=`echo "$x < -2.0"|bc`
 	xgt2=`echo "$x > 2.0"|bc`
 	yltn2=`echo "$y < -2.0"|bc`
 	ygt2=`echo "$y > 2.0"|bc`	
 
-	if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] && [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
+	if [ $x0 == 1 ] && [ $y0 == 1 ]
 	then
-		echo "normal"
+		echo "flat"
 	else
-		if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] 
+		if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] && [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
 		then
-			if [ $yltn2 == 1 ]
-			then
-				echo "normal"
-			else
-				if [ $ygt2 == 1 ]
-				then
-					echo "inverted"
-				else
-					echo "normal"
-				fi
-			fi
+			echo "normal"
 		else
-			if [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
+			if [ $xltn2 == 0 ] && [ $xgt2 == 0 ] 
 			then
-				if [ $xltn2 == 1 ]
+				if [ $yltn2 == 1 ]
 				then
-					echo "right"
+					echo "normal"
 				else
-					if [ $xgt2 == 1 ]
+					if [ $ygt2 == 1 ]
 					then
-						echo "left"
+						echo "inverted"
 					else
-						echo "right"
+						echo "normal"
 					fi
 				fi
-			fi
-		fi		
+			else
+				if [ $yltn2 == 0 ] && [ $ygt2 == 0 ]
+				then
+					if [ $xltn2 == 1 ]
+					then
+						echo "right"
+					else
+						if [ $xgt2 == 1 ]
+						then
+							echo "left"
+						else
+							echo "right"
+						fi
+					fi
+				fi
+			fi		
+		fi
 	fi
 }
 
