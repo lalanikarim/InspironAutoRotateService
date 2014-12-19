@@ -21,9 +21,22 @@ The intention is to apply the script to system events that respond to the laptop
 
 Tested successfully using systemd under ArchLinux
 
-Note: /etc/systemd/user.conf will need the following included for the script to function properly under systemd:
+Instructions for systemd
+------------------------
+
+Ensure /etc/systemd/user.conf has the following line:
 
 	DefaultEnvironment=DISPLAY=:0
+
+Copy inspironAutoRotateScreen.service to ~/.config/systemd/user folder
+
+Start the service using the following command
+
+	systemctl --user start inspironAutoRotateScreen.service
+
+Enable the service to auto-start using the following command
+
+	systemctl --user enable inspironAutoRotateScreen.service
 
 Author: Karim Lalani - jimmy00784@gmail.com
 
