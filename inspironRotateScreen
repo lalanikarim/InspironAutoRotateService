@@ -41,10 +41,10 @@ rotatescreen(){
 }
 
 showhelp(){
-	echo "Dell Inspiron 2-in-1 Screen Rotation Script"
+	echo "Dell Inspiron 2-in-1 Screen Rotation Script for Linux"
 	echo "Tested successfully with Dell Inspiron 13 i7347 2-in-1 Laptop"
 	echo
-	echo "usage: .rotateScreen.sh [option]"
+	echo "usage: inspironRotateScreen [option]"
 	echo "options"
 	echo "	left 		- rotates screen 90 degrees to the left from the normal mode"
 	echo "	right		- rotates screen 90 degrees to the right from the normal mode"
