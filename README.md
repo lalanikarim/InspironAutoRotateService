@@ -3,7 +3,7 @@ Dell Inspiron 2-in-1 Screen Rotation Script for Linux
 
 Tested successfully with Dell Inspiron 13 i7347 2-in-1 Laptop
 
-usage: .rotateScreen.sh [option]
+usage: inspironRotateScreen [option]
 
 options
 
