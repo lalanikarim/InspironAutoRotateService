@@ -19,5 +19,11 @@ Script with option could be attached to Keyboard shortcuts as well as Operating 
 
 The intention is to apply the script to system events that respond to the laptops internal gyroscope to automatically rotate the screen
 
+Tested successfully using systemd under ArchLinux
+
+Note: /etc/systemd/user.conf will need the following included for the script to function properly under systemd:
+
+	DefaultEnvironment=DISPLAY=:0
+
 Author: Karim Lalani - jimmy00784@gmail.com
 
