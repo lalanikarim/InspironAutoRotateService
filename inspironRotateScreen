@@ -9,7 +9,15 @@ matrix[3]="0 -1 1 1 0 0 0 0 1"
 matrix[4]="-1 0 1 0 -1 1 0 0 1"
 
 rotatescreen(){
-	xrandr --screen 0 -o $1
+
+	# Use an intermediary "screen rotate left" if going to "normal" or "inverted"
+	if [ "$1" == "normal" -o "$1" == "inverted" ]
+	then
+		xrandr --screen 0 -o "left" && xrandr --screen 0 -o $1
+	else
+		xrandr --screen 0 -o $1
+	fi
+
 	if [ $1 == "normal" ]
 	then
 		for index in 1 2

@@ -11,9 +11,18 @@ do
 done
 
 #echo $IIODEVICE
+screenRotationOld="normal"
 
 while true
 do
-	inspironReadSensor $IIODEVICE | xargs inspironRotateScreen
+	screenRotation=`inspironReadSensor $IIODEVICE`
+
+	# Only run inspironRotateScreen when the orientation has changed
+	if [ "$screenRotation" != "$screenRotationOld" ]
+	then
+		screenRotationOld=$screenRotation
+		inspironRotateScreen "$screenRotation"
+	fi
+
 	sleep 5
 done
